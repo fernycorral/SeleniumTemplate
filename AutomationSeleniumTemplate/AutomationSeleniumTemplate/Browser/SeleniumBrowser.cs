@@ -18,11 +18,10 @@ namespace AutomationSeleniumTemplate.Browser
 
 		public SeleniumBrowser()
 		{
-			FirefoxProfile profile = new FirefoxProfile();
-			Proxy proxy = new Proxy();
-			proxy.IsAutoDetect = true;
-			profile.SetProxyPreferences(proxy);
-			driver = new FirefoxDriver(profile);
+			
+			
+			FirefoxProfile myprofile = new FirefoxProfileManager().GetProfile("mySeleniumProject");
+			driver = new FirefoxDriver(myprofile);
 			
 		}
 
@@ -38,7 +37,12 @@ namespace AutomationSeleniumTemplate.Browser
 
 		public void DoClickByXPath(string XPath)
 		{
-			driver.FindElement(By.XPath(XPath)).Click();
+			try
+			{
+				driver.FindElement(By.XPath(XPath)).Click();
+			}
+			catch(Exception e)
+			{ }
 		}
 
 		public void SetText(string Xpath,string text)
